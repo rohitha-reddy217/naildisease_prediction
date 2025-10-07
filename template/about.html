@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Nail Disease Detection</title>
+    <style>
+        /* --- General Styles --- */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #F8F9FA;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background-color: #05668D;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav .logo {
+            font-weight: bold;
+            font-size: 22px;
+            color: #F8F9FA;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: #F8F9FA;
+            font-weight: bold;
+            margin-left: 25px;
+            font-size: 18px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            position: relative;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            left: 0;
+            bottom: 0;
+            background-color: #00A896;
+            transition: width 0.3s ease;
+        }
+
+        nav .nav-links a:hover::after,
+        nav .nav-links a.active::after {
+            width: 100%;
+        }
+
+        nav .nav-links a:hover {
+            color: #00A896;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(5,102,141,0.7), rgba(2,128,144,0.7)),
+                url("{{ url_for('static', filename='images/about-banner.jpg') }}") no-repeat center center;
+            background-size: cover;
+            animation: fadeIn 1.5s ease;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        /* --- About Content --- */
+        .container {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .container h2 {
+            color: #05668D;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            max-width: 800px;
+            margin: 0 auto 25px auto;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #05668D;
+            color: #F8F9FA;
+            margin-top: 40px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Responsive --- */
+        @media screen and (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            nav .nav-links {
+                margin-top: 10px;
+            }
+
+            nav .nav-links a {
+                margin: 8px 0;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">NailDoc</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}" class="active">About</a>
+            <a href="{{ url_for('nailhome') }}">Nail Info</a>
+            <a href="{{ url_for('nailpred') }}">Predict</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>About Nail Disease Detection</h1>
+        <p>Learn more about our AI-powered system</p>
+    </header>
+
+    <!-- About Section -->
+    <div class="container">
+        <h2>What is this Project?</h2>
+        <p>
+            Nail Disease Detection is an AI-based application designed to help users detect common nail diseases early. 
+            Using advanced deep learning models, the system analyzes images of nails and predicts potential conditions 
+            with accuracy and speed.
+        </p>
+
+        <h2>Why We Built It</h2>
+        <p>
+            Early detection of nail diseases is crucial for maintaining healthy nails and preventing serious medical complications. 
+            This project aims to empower users by providing an easy-to-use tool to assess their nail health quickly.
+        </p>
+
+        <h2>How It Benefits Users</h2>
+        <p>
+            The system allows users to upload nail images and receive detailed predictions along with the likelihood of each 
+            condition. It guides users toward timely medical consultation and raises awareness about nail health.
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Nail Disease Detection
+    </footer>
+
+    <!-- Active Link Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentPage = window.location.pathname.split("/").pop();
+            document.querySelectorAll("nav a").forEach(link => {
+                if (link.getAttribute("href").includes(currentPage)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
