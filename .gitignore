@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+venv/
+env/
+.vscode/
+.idea/
+Dataset/
+model/
+static/uploads/
+*.h5
+*.ckpt
+.env
