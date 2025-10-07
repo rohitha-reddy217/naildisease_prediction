@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Nail Disease Detection</title>
+    <style>
+        /* --- General Styles --- */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #F8F9FA;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background-color: #05668D;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav .logo {
+            font-weight: bold;
+            font-size: 22px;
+            color: #F8F9FA;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: #F8F9FA;
+            font-weight: bold;
+            margin-left: 25px;
+            font-size: 18px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            position: relative;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Hover underline animation */
+        nav .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            left: 0;
+            bottom: 0;
+            background-color: #00A896;
+            transition: width 0.3s ease;
+        }
+
+        nav .nav-links a:hover::after,
+        nav .nav-links a.active::after {
+            width: 100%;
+        }
+
+        nav .nav-links a:hover {
+            color: #00A896;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 120px 20px;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(5,102,141,0.7), rgba(2,128,144,0.7)),
+                url("{{ url_for('static', filename='images/doctor.png') }}") no-repeat center center;
+            background-size: cover;
+            background-position: center;
+            animation: fadeIn 1.5s ease;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        /* --- Container --- */
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .container h2 {
+            color: #05668D;
+            margin-bottom: 15px;
+        }
+
+        .container p.description {
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #028090;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 0 8px rgba(0, 168, 150, 0.5);
+        }
+
+        .cta-button:hover {
+            background-color: #00A896;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 168, 150, 0.8);
+        }
+
+        /* --- Models Section --- */
+        .models-section {
+            background-color: #E0F7FA;
+            padding: 50px 20px;
+        }
+
+        .models-section h2 {
+            color: #05668D;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .models-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .model-card {
+            background-color: #fff;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            text-align: center;
+            color: #05668D;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .model-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .model-card p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #555;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #05668D;
+            color: #F8F9FA;
+            margin-top: 40px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Responsive --- */
+        @media screen and (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            nav .nav-links {
+                margin-top: 10px;
+            }
+
+            nav .nav-links a {
+                margin: 8px 0;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .models-grid {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">NailDoc</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="active">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('nailhome') }}">Nail Info</a>
+            <a href="{{ url_for('nailpred') }}">Predict</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Welcome to Nail Disease Detection</h1>
+        <p>AI-powered detection of common nail diseases.</p>
+    </header>
+
+    <!-- How It Works Section -->
+    <div class="container">
+        <h2>How It Works</h2>
+        <p class="description">
+            Our system uses advanced AI techniques to analyze nail images and detect common nail diseases at an early stage.
+            Simply upload a clear image of your nail, and our trained models will provide a prediction along with the probability
+            of each condition. This helps users take timely medical action.
+        </p>
+        <h2>Get Started</h2>
+        <a href="{{ url_for('nailpred') }}" class="cta-button">Predict Now</a>
+    </div>
+
+    <!-- Models Section -->
+    <section class="models-section">
+        <h2>Models Used in This Project</h2>
+        <div class="models-grid">
+            <div class="model-card">
+                <h3>VGG16</h3>
+                <p>Simple and effective convolutional network. Serves as a strong baseline for image classification in nail detection.</p>
+            </div>
+            <div class="model-card">
+                <h3>ResNet50</h3>
+                <p>Uses residual learning to improve accuracy by enabling very deep networks without vanishing gradients.</p>
+            </div>
+            <div class="model-card">
+                <h3>InceptionV3</h3>
+                <p>Efficient multi-scale feature extraction, capturing different sized patterns in nail images effectively.</p>
+            </div>
+            <div class="model-card">
+                <h3>Xception</h3>
+                <p>Depthwise separable convolutions allow high accuracy with fewer parameters, ideal for complex image tasks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Nail Disease Detection
+    </footer>
+
+    <!-- Active Link Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentPage = window.location.pathname.split("/").pop();
+            document.querySelectorAll("nav a").forEach(link => {
+                if (link.getAttribute("href").includes(currentPage)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
