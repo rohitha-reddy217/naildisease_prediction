@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict - Nail Disease Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #F8F9FA;
+            margin: 0;
+            color: #333;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background-color: #05668D;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #F8F9FA;
+            margin: 0 20px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #00A896;
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(135deg, #028090, #00A896);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            animation: fadeIn 1.3s ease;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            animation: fadeIn 1.5s ease;
+        }
+
+        input[type="file"] {
+            margin-top: 20px;
+            border: 2px dashed #00A896;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            background-color: #e0f7fa;
+            transform: scale(1.02);
+        }
+
+        button {
+            background-color: #028090;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background-color: #00A896;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        /* --- Prediction Results --- */
+        .result-card {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e0f7fa;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: fadeUp 1s ease;
+        }
+
+        .result-card h2 {
+            color: #05668D;
+            margin-bottom: 10px;
+        }
+
+        .result-card h3 {
+            color: #028090;
+            margin-bottom: 15px;
+        }
+
+        .result-card img {
+            max-width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .result-card img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #05668D;
+            color: #F8F9FA;
+            margin-top: 40px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes fadeUp {
+            from {opacity: 0; transform: translateY(10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* --- Responsive --- */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            input[type="file"] {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('nailhome') }}">Nail Info</a>
+        <a href="{{ url_for('nailpred') }}" class="active">Predict</a>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Upload Nail Image for Prediction</h1>
+        <p>Our AI system will analyze your nail image and provide instant predictions for possible nail conditions.</p>
+    </header>
+
+    <!-- Upload & Prediction Container -->
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <br>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result-card">
+            <h2>Predicted Disease: {{ prediction }}</h2>
+            <h3>Confidence: {{ confidence }}%</h3>
+            <img src="{{ img_path }}" alt="Uploaded Image">
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>&copy; 2025 Nail Disease Detection</footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const current = window.location.pathname.split("/").pop();
+            document.querySelectorAll("nav a").forEach(a => {
+                if(a.getAttribute("href").includes(current)) a.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
